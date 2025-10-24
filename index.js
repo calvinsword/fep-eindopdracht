@@ -77,12 +77,13 @@ async function addRepoTile(token, repoUrl) {
         tile.className = 'tile';
         tile.dataset.repo = repoFullName; // Store identifier for duplicate detection
         tile.innerHTML = `
-            <h2>${data.full_name}</h2>
-            <p>${data.description || 'Geen beschrijving beschikbaar.'}</p>
+        <h2>${data.full_name}</h2>
+        <p>${data.description || 'Geen beschrijving beschikbaar.'}</p>
         `;
 
+        // Pass owner & repo in URL
         tile.addEventListener('click', () => {
-            window.location.href = `src/repoTile.html`;
+            window.location.href = `src/repoTile.html?owner=${encodeURIComponent(owner)}&repo=${encodeURIComponent(repo)}`;
         });
 
         tilesContainer.appendChild(tile);
