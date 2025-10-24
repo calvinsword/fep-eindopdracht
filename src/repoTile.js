@@ -1,7 +1,11 @@
 // --- URL & Token setup ---
 const urlParams = new URLSearchParams(window.location.search);
-const owner = urlParams.get("owner");
-const repo = urlParams.get("repo");
+const owner = localStorage.getItem('selectedRepoOwner');
+const repo = localStorage.getItem('selectedRepoName');
+if (!owner || !repo) {
+    document.getElementById('error-message').textContent = 'No repository selected. Go back to the dashboard.';
+    throw new Error('No repository selected');
+}
 const token = localStorage.getItem("githubToken");
 
 const repoNameEl = document.getElementById("repo-name");
