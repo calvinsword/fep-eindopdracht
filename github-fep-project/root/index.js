@@ -82,7 +82,7 @@ async function addRepoTile(token, repoUrl) {
         `;
 
         tile.addEventListener('click', () => {
-            window.location.href = `src/repoTile.html?owner=${owner}&repo=${repo}`;
+            window.location.href = `src/repoTile.html`;
         });
 
         tilesContainer.appendChild(tile);
