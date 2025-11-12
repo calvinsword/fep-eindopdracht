@@ -2,10 +2,6 @@
 const urlParams = new URLSearchParams(window.location.search);
 const owner = localStorage.getItem('selectedRepoOwner');
 const repo = localStorage.getItem('selectedRepoName');
-if (!owner || !repo) {
-    document.getElementById('error-message').textContent = 'No repository selected. Go back to the dashboard.';
-    throw new Error('No repository selected');
-}
 const token = localStorage.getItem("githubToken");
 
 const repoNameEl = document.getElementById("repo-name");
@@ -13,6 +9,11 @@ const createdAtEl = document.getElementById("created-at");
 const contributorsEl = document.getElementById("contributors");
 const fileTypesEl = document.getElementById("file-types");
 const errorMessage = document.getElementById("error-message");
+
+if (!owner || !repo) {
+    document.getElementById('error-message').textContent = 'No repository selected. Go back to the dashboard.';
+    throw new Error('No repository selected');
+}
 
 function decodeBase64(content) {
     try {
@@ -186,7 +187,6 @@ async function loadFileDetails() {
     }
 }
 
-// main
 if (!token) {
     errorMessage.textContent = "Geen GitHub token gevonden. Ga terug naar de startpagina.";
 } else {

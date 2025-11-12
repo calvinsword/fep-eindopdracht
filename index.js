@@ -72,20 +72,17 @@ async function addRepoTile(token, repoUrl) {
 
         const data = await response.json();
 
-        // Create a tile for this repo
-        const tile = document.createElement('div');
-        tile.className = 'tile';
-        tile.dataset.repo = repoFullName; // Store identifier for duplicate detection
-        tile.innerHTML = `
-            <h2>${data.full_name}</h2>
-            <p>${data.description || 'Geen beschrijving beschikbaar.'}</p>
-        `;
+        // Clone template
+        const template = document.getElementById('tile-template');
+        const tile = template.content.cloneNode(true).querySelector('.tile');
+
+        tile.dataset.repo = repoFullName; // Store identifier
+        tile.querySelector('h2').textContent = data.full_name;
+        tile.querySelector('p').textContent = data.description || 'Geen beschrijving beschikbaar.';
 
         tile.addEventListener('click', () => {
-
             localStorage.setItem('selectedRepoOwner', owner);
             localStorage.setItem('selectedRepoName', repo);
-
             window.location.href = 'src/repoTile.html';
         });
 
