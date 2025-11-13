@@ -7,18 +7,43 @@
     <link rel="stylesheet" href="repoTile.css">
 </head>
 <body>
-<div class="repo-dashboard">
-    <h1 id="repo-name"></h1>
-    <p id="created-at"></p>
+<header>
+    <h1>Repository Dashboard</h1>
+</header>
+<!-- voor accessability is de aria labels gebruikt (screen readers) -->
+<!-- voor aria-live gekozen zodat het pas reageerd waneer de screenreader idle is
+(dit is voor angst tegen te gaan dat het dynamish ophalen niet de screenreader laat fastlopen met een berg aan nieuwe info)-->
+<!-- er is een tab indezx zodat er betrouwbaar getabt kan worden -->
+<main>
+    <section class="repo-dashboard" aria-labelledby="repo-name">
+        <h2 id="repo-name" tabindex="0" aria-live="polite"></h2>
+        <p id="created-at" aria-live="polite"></p>
 
-    <h2>Contributors</h2>
-    <ul id="contributors"></ul>
+        <section aria-labelledby="contributors-heading">
+            <h3 id="contributors-heading">Contributors</h3>
+            <ul id="contributors" aria-live="polite"></ul>
+        </section>
 
-    <h2>Bestanden</h2>
-    <div id="file-types"></div>
+        <section aria-labelledby="files-heading">
+            <h3 id="files-heading">Bestanden</h3>
+            <div id="file-types" role="region" aria-label="Bestandstypen overzicht" aria-live="polite"></div>
 
-    <p id="error-message" style="color: red;"></p>
-</div>
+            <template id="file-card-template">
+                <!-- aria label gebruikt -->
+                <!-- aria label is zodat het met zekerheid de juiste verwoording gebruikt-->
+                <!-- article is gebruikt voor screenreaders -->
+                <article class="file-card" tabindex="0" aria-label="Bestandsinformatie">
+                    <p><strong class="file-path"></strong></p>
+                    <p>Type: <span class="file-type"></span></p>
+                    <p>Regels: <span class="file-lines"></span></p>
+                    <p>Toegevoegd: +<span class="file-additions"></span> / Verwijderd: -<span class="file-deletions"></span></p>
+                </article>
+            </template>
+        </section>
+
+        <p id="error-message" role="alert"></p>
+    </section>
+</main>
 
 <script src="repoTile.js"></script>
 </body>

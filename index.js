@@ -71,12 +71,11 @@ async function addRepoTile(token, repoUrl) {
         }
 
         const data = await response.json();
-
-        // Clone template
+        //clone de te
         const template = document.getElementById('tile-template');
         const tile = template.content.cloneNode(true).querySelector('.tile');
 
-        tile.dataset.repo = repoFullName; // Store identifier
+        tile.dataset.repo = repoFullName;
         tile.querySelector('h2').textContent = data.full_name;
         tile.querySelector('p').textContent = data.description || 'Geen beschrijving beschikbaar.';
 

@@ -151,9 +151,12 @@ async function getAllFileChangesFromCommits() {
     return fileChanges;
 }
 
+const fileCardTemplate = document.getElementById("file-card-template");
+
 async function loadFileDetails() {
     try {
         fileTypesEl.textContent = "Bezig met ophalen van bestandsinformatie";
+        fileTypesEl.setAttribute("aria-busy", "true");
 
         const [repoFiles, commitChanges] = await Promise.all([
             getRepoFiles(),
@@ -168,22 +171,34 @@ async function loadFileDetails() {
             }
         }
 
-        // Display each file
-        fileTypesEl.innerHTML = Object.entries(repoFiles)
-            .map(
-                ([path, stats]) => `
-        <div class="file-card">
-          <p><strong>${path}</strong></p>
-          <p>Type: .${stats.type}</p>
-          <p>Regels: ${stats.lines}</p>
-          <p>Toegevoegd: +${stats.additions} / Verwijderd: -${stats.deletions}</p>
-        </div>
-      `
-            )
-            .join("");
+
+        fileTypesEl.innerHTML = "";
+
+        // Create accessible file cards from template
+        Object.entries(repoFiles).forEach(([path, stats]) => {
+            const clone = fileCardTemplate.content.cloneNode(true);
+            const card = clone.querySelector(".file-card");
+
+            card.querySelector(".file-path").textContent = path;
+            card.querySelector(".file-type").textContent = `.${stats.type}`;
+            card.querySelector(".file-lines").textContent = stats.lines;
+            card.querySelector(".file-additions").textContent = stats.additions;
+            card.querySelector(".file-deletions").textContent = stats.deletions;
+
+            // Add accessible name
+            card.setAttribute(
+                "aria-label",
+                `Bestand ${path}, type ${stats.type}, ${stats.lines} regels, ${stats.additions} toegevoegd, ${stats.deletions} verwijderd`
+            );
+
+            fileTypesEl.appendChild(clone);
+        });
+
+        fileTypesEl.removeAttribute("aria-busy");
     } catch (error) {
         console.error(error);
         fileTypesEl.textContent = "Fout bij laden van bestandsdetails.";
+        fileTypesEl.removeAttribute("aria-busy");
     }
 }
 

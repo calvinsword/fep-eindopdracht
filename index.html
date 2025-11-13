@@ -8,33 +8,43 @@
 </head>
 <body>
 <div class="container">
-  <div class="center-box">
+
+  <header>
     <h1>GitHub Dashboard</h1>
+  </header>
+  <main>
+    <div class="center-box">
+      <h1>GitHub Dashboard</h1>
 
-    <label for="token">GitHub Token</label>
-    <input type="password" id="token" placeholder="Voer je GitHub token in" />
+      <!-- Wanneer een label er boven staat dan zal de screen reader het lezen -->
+      <label for="token">GitHub Token</label>
+      <input type="password" id="token" placeholder="Voer je GitHub token in" />
 
-    <label for="repo">Repository URL</label>
-    <input type="text" id="repo" placeholder="https://github.com/user/repo" />
+      <label for="repo">Repository URL</label>
+      <input type="text" id="repo" placeholder="Voer je repository URL in" />
 
-    <button id="saveBtn">Opslaan en laden</button>
-    <p id="error-message"></p>
-  </div>
-
-  <div class="dashboard">
-    <div id="rate-limit-box">
-      <p><strong>Max Pull Request:</strong> <span id="limit">-</span></p>
-      <p><strong>Pull request over:</strong> <span id="remaining">-</span></p>
+      <button id="saveBtn">Opslaan en laden</button>
+      <p id="error-message"></p>
     </div>
-    <div id="tiles"></div>
 
-    <template id="tile-template">
-      <div class="tile">
-        <h2></h2>
-        <p></p>
+    <div class="dashboard">
+      <div id="rate-limit-box">
+        <p><strong>Max Pull Request:</strong> <span id="limit">-</span></p>
+        <p><strong>Pull request over:</strong> <span id="remaining">-</span></p>
       </div>
-    </template>
-  </div>
+      <div id="tiles"></div>
+
+      <template id="tile-template">
+        <div class="tile">
+          <h2></h2>
+          <p></p>
+        </div>
+      </template>
+    </div>
+  </main>
+  <footer>
+    <h3>Calvin industry's</h3>
+  </footer>
 </div>
 
 <script src="index.js"></script>

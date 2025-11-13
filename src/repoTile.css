@@ -37,3 +37,9 @@
     color: #333;
     font-size: 0.95rem;
 }
+
+#error-message,
+#error-message span {
+    color: #d93025;
+    font-weight: 600;
+}
